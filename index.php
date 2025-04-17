@@ -1,37 +1,37 @@
 <?php
-require 'vendor/autoload.php';
-use Aws\SecretsManager\SecretsManagerClient;
-use Aws\Exception\AwsException;
+// require 'vendor/autoload.php';
+// use Aws\SecretsManager\SecretsManagerClient;
+// use Aws\Exception\AwsException;
 
-$client = new SecretsManagerClient([
-    'version' => 'latest',
-    'region' => 'us-east-1a',
-]);
+// $client = new SecretsManagerClient([
+//     'version' => 'latest',
+//     'region' => 'us-east-1a',
+// ]);
 
-$secret_name = 'rds!db-10887daf-23f8-4254-b519-5f5f1f8af99a';
+// $secret_name = 'rds!db-10887daf-23f8-4254-b519-5f5f1f8af99a';
 
-try {
-    $result = $client->getSecretValue([
-        'SecretId' => $secret_name,
-    ]);
-} catch (AwsException $e) {
-    // For a list of exceptions thrown, see
-    // https://<<{{DocsDomain}}>>/secretsmanager/latest/apireference/API_GetSecretValue.html
-    throw $e;
-}
-$secret = $result['SecretString'];
-$secrets = json_decode( $secret, true );
-// Database connection (you'll need to set up your database)
-$db_host = 'themeparkdb.c2mkzpzryjtg.us-east-1.rds.amazonaws.com';
-$db_user = $secrets['username'];
-$db_pass = $secrets['password'];
-$db_name = 'themeparkdb';
+// try {
+//     $result = $client->getSecretValue([
+//         'SecretId' => $secret_name,
+//     ]);
+// } catch (AwsException $e) {
+//     // For a list of exceptions thrown, see
+//     // https://<<{{DocsDomain}}>>/secretsmanager/latest/apireference/API_GetSecretValue.html
+//     throw $e;
+// }
+// $secret = $result['SecretString'];
+// $secrets = json_decode( $secret, true );
+// // Database connection (you'll need to set up your database)
+// $db_host = 'themeparkdb.c2mkzpzryjtg.us-east-1.rds.amazonaws.com';
+// $db_user = $secrets['username'];
+// $db_pass = $secrets['password'];
+// $db_name = 'themeparkdb';
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+// $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// }
 
 // // Handle consent form submission
 // $consent_message = '';
@@ -312,31 +312,22 @@ if ($conn->connect_error) {
     <section id="attractions" class="attractions">
         <h2>Our Amazing Attractions</h2>
         <div class="attractions-grid">
-            <?php if (!empty($attractions)): ?>
-                <?php foreach ($attractions as $attraction): ?>
-                    <div class="attraction-card">
-                        <img src="<?php echo htmlspecialchars($attraction['image_url']); ?>" alt="<?php echo htmlspecialchars($attraction['name']); ?>">
-                        <h3><?php echo htmlspecialchars($attraction['name']); ?></h3>
-                        <p><?php echo htmlspecialchars($attraction['description']); ?></p>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
                 <div class="attraction-card">
-                    <img src="../images/pic1.jpg" alt="Thunder Mountain">
+                    <img src="https://themeparkbucket1.s3.us-east-1.amazonaws.com/images/pic1.jpg" alt="Thunder Mountain">
                     <h3>Thunder Mountain</h3>
                     <p>Experience the ultimate thrill with our signature roller coaster featuring multiple loops and drops.</p>
                 </div>
                 <div class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1565800452-f2d14754b919?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Splash World">
+                    <img src="https://themeparkbucket1.s3.us-east-1.amazonaws.com/images/pic2.png" alt="Splash World">
                     <h3>Splash World</h3>
                     <p>Cool off in our massive water park with slides, wave pools, and lazy rivers.</p>
                 </div>
                 <div class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1565800452-f2d14754b919?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family Fun Zone">
+                    <img src="https://themeparkbucket1.s3.us-east-1.amazonaws.com/images/pic3.jpg" alt="Family Fun Zone">
                     <h3>Family Fun Zone</h3>
                     <p>Perfect for the whole family with gentle rides and interactive attractions.</p>
                 </div>
-            <?php endif; ?>
+            
         </div>
     </section>
 
