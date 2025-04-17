@@ -19,11 +19,13 @@ try {
     // https://<<{{DocsDomain}}>>/secretsmanager/latest/apireference/API_GetSecretValue.html
     throw $e;
 }
-// // Database connection (you'll need to set up your database)
-// $db_host = 'localhost';
-// $db_user = 'root';
-// $db_pass = '';
-// $db_name = 'themepark';
+$secret = $result['SecretString'];
+$secrets = json_decode( $secret, true );
+// Database connection (you'll need to set up your database)
+$db_host = 'themeparkdb.c2mkzpzryjtg.us-east-1.rds.amazonaws.com';
+$db_user = $secrets['username'];
+$db_pass = $secrets['password'];
+$db_name = 'themeparkdb';
 
 // $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
