@@ -27,11 +27,11 @@ $db_user = $secrets['username'];
 $db_pass = $secrets['password'];
 $db_name = 'themeparkdb';
 
-// $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // // Handle consent form submission
 // $consent_message = '';
@@ -405,5 +405,5 @@ $db_name = 'themeparkdb';
 </body>
 </html>
 <?php
-// $conn->close();
+$conn->close();
 ?> 
