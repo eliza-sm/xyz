@@ -1,67 +1,67 @@
 <?php
-// Database connection (you'll need to set up your database)
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
-$db_name = 'themepark';
+// // Database connection (you'll need to set up your database)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'themepark';
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+// $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// }
 
-// Handle consent form submission
-$consent_message = '';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['visitor_name'])) {
-    $visitor_name = $_POST['visitor_name'] ?? '';
-    $age = $_POST['age'] ?? '';
-    $emergency_contact = $_POST['emergency_contact'] ?? '';
-    $medical_conditions = $_POST['medical_conditions'] ?? '';
-    $terms_agree = isset($_POST['terms_agree']) ? 1 : 0;
-    $liability_agree = isset($_POST['liability_agree']) ? 1 : 0;
+// // Handle consent form submission
+// $consent_message = '';
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['visitor_name'])) {
+//     $visitor_name = $_POST['visitor_name'] ?? '';
+//     $age = $_POST['age'] ?? '';
+//     $emergency_contact = $_POST['emergency_contact'] ?? '';
+//     $medical_conditions = $_POST['medical_conditions'] ?? '';
+//     $terms_agree = isset($_POST['terms_agree']) ? 1 : 0;
+//     $liability_agree = isset($_POST['liability_agree']) ? 1 : 0;
     
-    if (!empty($visitor_name) && !empty($age) && !empty($emergency_contact)) {
-        $stmt = $conn->prepare("INSERT INTO visitor_consent (name, age, emergency_contact, medical_conditions, terms_agree, liability_agree) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sisssi", $visitor_name, $age, $emergency_contact, $medical_conditions, $terms_agree, $liability_agree);
+//     if (!empty($visitor_name) && !empty($age) && !empty($emergency_contact)) {
+//         $stmt = $conn->prepare("INSERT INTO visitor_consent (name, age, emergency_contact, medical_conditions, terms_agree, liability_agree) VALUES (?, ?, ?, ?, ?, ?)");
+//         $stmt->bind_param("sisssi", $visitor_name, $age, $emergency_contact, $medical_conditions, $terms_agree, $liability_agree);
         
-        if ($stmt->execute()) {
-            $consent_message = "Thank you for submitting your consent form!";
-        } else {
-            $consent_message = "Sorry, there was an error submitting your consent form.";
-        }
-        $stmt->close();
-    }
-}
+//         if ($stmt->execute()) {
+//             $consent_message = "Thank you for submitting your consent form!";
+//         } else {
+//             $consent_message = "Sorry, there was an error submitting your consent form.";
+//         }
+//         $stmt->close();
+//     }
+// }
 
-// Handle form submission
-$message = '';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $message_text = $_POST['message'] ?? '';
+// // Handle form submission
+// $message = '';
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $name = $_POST['name'] ?? '';
+//     $email = $_POST['email'] ?? '';
+//     $message_text = $_POST['message'] ?? '';
     
-    if (!empty($name) && !empty($email) && !empty($message_text)) {
-        $stmt = $conn->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $name, $email, $message_text);
+//     if (!empty($name) && !empty($email) && !empty($message_text)) {
+//         $stmt = $conn->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+//         $stmt->bind_param("sss", $name, $email, $message_text);
         
-        if ($stmt->execute()) {
-            $message = "Thank you for your message! We'll get back to you soon.";
-        } else {
-            $message = "Sorry, there was an error sending your message.";
-        }
-        $stmt->close();
-    }
-}
+//         if ($stmt->execute()) {
+//             $message = "Thank you for your message! We'll get back to you soon.";
+//         } else {
+//             $message = "Sorry, there was an error sending your message.";
+//         }
+//         $stmt->close();
+//     }
+// }
 
-// Get attractions from database
-$attractions = [];
-$result = $conn->query("SELECT * FROM attractions");
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $attractions[] = $row;
-    }
-}
+// // Get attractions from database
+// $attractions = [];
+// $result = $conn->query("SELECT * FROM attractions");
+// if ($result) {
+//     while ($row = $result->fetch_assoc()) {
+//         $attractions[] = $row;
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -383,5 +383,5 @@ if ($result) {
 </body>
 </html>
 <?php
-$conn->close();
+// $conn->close();
 ?> 
