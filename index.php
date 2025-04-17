@@ -1,4 +1,24 @@
 <?php
+require 'vendor/autoload.php';
+use Aws\SecretsManager\SecretsManagerClient;
+use Aws\Exception\AwsException;
+
+$client = new SecretsManagerClient([
+    'version' => 'latest',
+    'region' => 'us-east-1a',
+]);
+
+$secret_name = 'rds!db-10887daf-23f8-4254-b519-5f5f1f8af99a';
+
+try {
+    $result = $client->getSecretValue([
+        'SecretId' => $secret_name,
+    ]);
+} catch (AwsException $e) {
+    // For a list of exceptions thrown, see
+    // https://<<{{DocsDomain}}>>/secretsmanager/latest/apireference/API_GetSecretValue.html
+    throw $e;
+}
 // // Database connection (you'll need to set up your database)
 // $db_host = 'localhost';
 // $db_user = 'root';
